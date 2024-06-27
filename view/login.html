@@ -23,72 +23,72 @@
 <body>
 
 <div id="form-login">
-    <form action="">
+    <form action="/login" method="post">
         <div class='login'>
             <div class='login_title'>
                 <span>登录</span>
             </div>
 
+            <!--
             <div style="text-align: center">
 				<a href="/qq_login" title="QQ登录">
                 <img src="/static/img/qq.png" alt="" height="100" width="100" style="opacity:0.5;">
 					<p style="text-align: center;">点击使用QQ一键登录</p>
 				</a>
             </div>
+            -->
 
-            {{/*            <div class='login_fields'>*/}}
-            {{/*                <div class='login_fields__user'>*/}}
-            {{/*                    <input name="login" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>*/}}
-            {{/*                </div>*/}}
-
-            {{/*                <div class='login_fields__password'>*/}}
-            {{/*                    <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">*/}}
-            {{/*                </div>*/}}
-            {{/*                <div class='login_fields__submit'>*/}}
-            {{/*                    <input type='submit' value='登录'>*/}}
-            {{/*                </div>*/}}
-            {{/*            </div>*/}}
-            {{/*            <div class='success'>*/}}
-            {{/*            </div>*/}}
+            <div class='login_fields'>
+                <div class='login_fields__user'>
+                    <input name="username" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>
+                </div>
+                <div class='login_fields__password'>
+                    <input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
+                </div>
+                <div class='login_fields__submit'>
+                    <input type='submit' value='登录'>
+                </div>
+            </div>
+            <div class='success'></div>
             <div class='disclaimer'>
-                {{/*				<a href="javascript:;" title="注册" id="to-reg">*/}}
-                {{/*				<img src="/static/img/register.png" alt="注册" width="30" height="30"> <div style="color: #1296db">注册</div>*/}}
-                {{/*				</a>*/}}
+                <a href="javascript:;" title="注册" id="to-reg">
+                    <img src="/static/img/register.png" alt="注册" width="30" height="30">
+                    <div style="color: #1296db">注册</div>
+                </a>
 				<p>欢迎使用本网盘系统</p>
-
             </div>
         </div>
     </form>
 </div>
 
-{{/*<div id="form-register">*/}}
-{{/*    <form action="">*/}}
-{{/*        <div class='login'>*/}}
-{{/*            <div class='login_title'>*/}}
-{{/*                <span>注册</span>*/}}
-{{/*            </div>*/}}
-{{/*            <div class='login_fields'>*/}}
-{{/*                <div class='login_fields__user'>*/}}
-{{/*                    <input name="login" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>*/}}
-{{/*                </div>*/}}
-
-{{/*                <div class='login_fields__password'>*/}}
-{{/*                    <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">*/}}
-{{/*                </div>*/}}
-{{/*                <div class='login_fields__submit'>*/}}
-{{/*                    <input type='submit' value='注册'>*/}}
-{{/*                </div>*/}}
-{{/*            </div>*/}}
-{{/*            <div class='success'>*/}}
-{{/*            </div>*/}}
-{{/*            <div class='disclaimer' style="text-align: center">*/}}
-{{/*				<a href="javascript:;" title="登录" id="to-login">*/}}
-{{/*					<img src="/static/img/login.png" alt="登录" width="30" height="30"> <div style="color: #1296db">登录</div>*/}}
-{{/*				</a>*/}}
-{{/*            </div>*/}}
-{{/*        </div>*/}}
-{{/*    </form>*/}}
-{{/*</div>*/}}
+<div id="form-register">
+    <form action="/register" method="post">
+        <div class='login'>
+            <div class='login_title'>
+                <span>注册</span>
+            </div>
+            <div class='login_fields'>
+                <div class='login_fields__user'>
+                    <input name="username" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>
+                </div>
+                <div class='login_fields__password'>
+                    <input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
+                </div>
+                <div class='login_fields__submit'>
+                    <input type='submit' value='注册'>
+                </div>
+            </div>
+            <div class='success'>
+            </div>
+            <div class='disclaimer' style="text-align: center">
+                <a href="javascript:;" title="登录" id="to-login">
+                    <img src="/static/img/login.png" alt="登录" width="30" height="30">
+                    <div style="color: #1296db">登录</div>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="OverWindows"></div>
 <link href="/static/layui/css/layui.css" rel="stylesheet" type="text/css"/>
