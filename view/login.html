@@ -23,7 +23,7 @@
 <body>
 
 <div id="form-login">
-    <form action="/login" method="post">
+    <form action="">
         <div class='login'>
             <div class='login_title'>
                 <span>登录</span>
@@ -40,13 +40,13 @@
 
             <div class='login_fields'>
                 <div class='login_fields__user'>
-                    <input name="username" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>
+                    <input name="username" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
                 </div>
                 <div class='login_fields__password'>
                     <input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
                 </div>
                 <div class='login_fields__submit'>
-                    <input type='submit' value='登录'>
+                    <input type='submit' value='登录' onclick="handleLogin(event)">
                 </div>
             </div>
             <div class='success'></div>
@@ -62,20 +62,20 @@
 </div>
 
 <div id="form-register">
-    <form action="/register" method="post">
+    <form action="">
         <div class='login'>
             <div class='login_title'>
                 <span>注册</span>
             </div>
             <div class='login_fields'>
                 <div class='login_fields__user'>
-                    <input name="username" placeholder='邮箱' maxlength="16" type='text' autocomplete="off" value=""/>
+                    <input name="username" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
                 </div>
                 <div class='login_fields__password'>
                     <input name="password" placeholder='密码' maxlength="16" type='password' autocomplete="off">
                 </div>
                 <div class='login_fields__submit'>
-                    <input type='submit' value='注册'>
+                    <input type='submit' value='注册' onclick="handleRegister(event)">
                 </div>
             </div>
             <div class='success'>
@@ -99,6 +99,96 @@
 <script src="/static/js/Particleground.js" type="text/javascript"></script>
 <script src="/static/js/Treatment.js" type="text/javascript"></script>
 <script src="/static/js/jquery.mockjax.js" type="text/javascript"></script>
+<script type="text/javascript">
+function handleLogin(event) {
+    event.preventDefault();
+
+    layui.use('layer', function () {
+        let layer = layui.layer;
+
+        let username = $('input[name="username"]').val();
+        let password = $('input[name="password"]').val();
+
+        if (!username) {
+            layer.msg('用户名不能为空');
+            return;
+        }
+        if (!password) {
+            layer.msg('密码不能为空');
+            return;
+        }
+
+        $.post('/login', {
+            username,
+            password
+        })
+        .done(function (d, statusCode) {
+            if (d && d.code) {
+                if (d.code === 400) {
+                    layer.msg(d.msg);
+                    return;
+                }
+                layer.msg('登录失败');
+                return;
+            }
+
+            layer.msg('登录成功');
+
+            setTimeout(() => {
+                window.location.href = '/cloud/index';
+            }, 1000);
+        })
+        .fail(function (d) {
+            console.error(d);
+            layer.msg('登录失败');
+        });
+    });  
+}
+
+function handleRegister(event) {
+    event.preventDefault();
+
+    layui.use('layer', function () {
+        let layer = layui.layer;
+        let username = $('#form-register input[name="username"]').val();
+        let password = $('#form-register input[name="password"]').val();
+
+        if (!username) {
+            layer.msg('用户名不能为空');
+            return;
+        }
+        if (!password) {
+            layer.msg('密码不能为空');
+            return;
+        }
+
+        $.post('/register', {
+            username,
+            password
+        })
+        .done(function (d, statusCode) {
+            if (d && d.code) {
+                if (d.code === 400) {
+                    layer.msg(d.msg);
+                    return;
+                }
+                layer.msg('注册失败');
+                return;
+            }
+
+            layer.msg('注册成功');
+
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        })
+        .fail(function (d) {
+            console.error(d);
+            layer.msg('注册失败');
+        });
+    });
+}
+</script>
 <script type="text/javascript">
     $(function () {
         $("#form-register").hide();
