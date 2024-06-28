@@ -77,7 +77,7 @@ func SubtractSize(size int64, fileStoreId int) {
 // 获取用户文件数量
 func GetUserFileCount(fileStoreId int) (fileCount int) {
 	var file []MyFile
-	mysql.DB.Find(&file, "file_store_id = ?", fileStoreId).Count(&fileCount)
+	mysql.DB.Where("file_store_id = ?", fileStoreId).Find(&file).Count(&fileCount)
 	return
 }
 
