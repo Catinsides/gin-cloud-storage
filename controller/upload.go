@@ -5,13 +5,14 @@ import (
 	"file-store/model"
 	"file-store/util"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/gin-gonic/gin"
 )
 
-//上传文件页面
+// 上传文件页面
 func Upload(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	fId := c.DefaultQuery("fId", "0")
@@ -36,11 +37,11 @@ func Upload(c *gin.Context) {
 		"fileFolders":      fileFolders,
 		"parentFolder":     parentFolder,
 		"currentAllParent": currentAllParent,
-		"fileDetailUse": fileDetailUse,
+		"fileDetailUse":    fileDetailUse,
 	})
 }
 
-//处理上传文件
+// 处理上传文件
 func HandlerUpload(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	//获取用户信息
@@ -95,11 +96,12 @@ func HandlerUpload(c *gin.Context) {
 	_, _ = newFile.Seek(0, 0)
 	fileHash := util.GetSHA256HashCode(newFile)
 
-	//通过hash判断文件是否已上传过oss
-	if ok := model.FileOssExists(fileHash); ok {
-		//上传至阿里云oss
-		go lib.UploadOss(head.Filename, fileHash)
-	}
+	// //通过hash判断文件是否已上传过oss
+	// if ok := model.FileOssExists(fileHash); ok {
+	// 	//上传至阿里云oss
+	// 	go lib.UploadOss(head.Filename, fileHash)
+	// }
+
 	//新建文件信息
 	model.CreateFile(head.Filename, fileHash, fileSize, Fid, user.FileStoreId)
 	//上传成功减去相应剩余容量

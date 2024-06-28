@@ -54,6 +54,7 @@ CREATE TABLE `my_file`  (
   `file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '/' COMMENT '文件存储路径',
   `download_num` int(11) NULL DEFAULT 0 COMMENT '下载次数',
   `upload_time` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上传时间',
+  `upload_oss` int(11) NULL DEFAULT 0 COMMENT '是否上传OSS（0否,1是）',
   `parent_folder_id` int(11) NULL DEFAULT NULL COMMENT '父文件夹ID',
   `size` int(11) NULL DEFAULT NULL COMMENT '文件大小',
   `size_str` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件大小单位',

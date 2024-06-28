@@ -3,14 +3,15 @@ package controller
 import (
 	"file-store/lib"
 	"file-store/model"
-	"github.com/gin-gonic/gin"
-	"github.com/lifei6671/gocaptcha"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	"github.com/lifei6671/gocaptcha"
 )
 
-//创建分享文件
+// 创建分享文件
 func ShareFile(c *gin.Context) {
 	openId, _ := c.Get("openId")
 	//获取用户信息
@@ -30,7 +31,7 @@ func ShareFile(c *gin.Context) {
 	})
 }
 
-//分享文件页面
+// 分享文件页面
 func SharePass(c *gin.Context) {
 	f := c.Query("f")
 
@@ -48,7 +49,7 @@ func SharePass(c *gin.Context) {
 	})
 }
 
-//下载分享文件
+// 下载分享文件
 func DownloadShareFile(c *gin.Context) {
 	fileId := c.Query("id")
 	code := c.Query("code")
@@ -58,7 +59,24 @@ func DownloadShareFile(c *gin.Context) {
 
 	//校验提取码
 	if ok := model.VerifyShareCode(fileId, strings.ToLower(code)); !ok {
-		c.Redirect(http.StatusMovedPermanently, "/file/share?f=" + hash)
+		c.Redirect(http.StatusMovedPermanently, "/file/share?f="+hash)
+		return
+	}
+
+	if fileInfo.UploadOss == 0 {
+		fileData, err := lib.DownloadLocal(fileInfo.FileName, fileInfo.Postfix)
+
+		if err != nil {
+			c.JSON(http.StatusOK, gin.H{
+				"code": 500,
+			})
+		}
+
+		model.DownloadNumAdd(fileId)
+
+		c.Header("Content-disposition", "attachment;filename=\""+fileInfo.FileName+fileInfo.Postfix+"\"")
+		c.Data(http.StatusOK, "application/octect-stream", fileData)
+
 		return
 	}
 

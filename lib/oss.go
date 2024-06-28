@@ -2,12 +2,13 @@ package lib
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"io/ioutil"
 	"path"
+
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
-//上传文件至阿里云
+// 上传文件至阿里云
 func UploadOss(filename, fileHash string) {
 	//获取文件后缀
 	fileSuffix := path.Ext(filename)
@@ -34,7 +35,7 @@ func UploadOss(filename, fileHash string) {
 	}
 }
 
-//从oss下载文件
+// 从oss下载文件
 func DownloadOss(fileHash, fileType string) []byte {
 	conf := LoadServerConfig()
 	// 创建OSSClient实例。
@@ -65,7 +66,7 @@ func DownloadOss(fileHash, fileType string) []byte {
 	return data
 }
 
-//从oss删除文件
+// 从oss删除文件
 func DeleteOss(fileHash, fileType string) {
 	conf := LoadServerConfig()
 	// 创建OSSClient实例。
