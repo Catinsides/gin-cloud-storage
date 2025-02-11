@@ -496,6 +496,10 @@
                         });
                     }
 
+                } else {
+                    var message = '请至少勾选一个文件进行上传';
+                    if (that.configs.showAlert) { alert(message); }
+                    that.configs.onAlert && that.configs.onAlert(message);
                 }
             }
         }
